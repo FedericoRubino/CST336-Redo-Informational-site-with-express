@@ -1,12 +1,26 @@
 /*
-	1. Every ejs hile has an extension .ejs
-	2. NodeJS looks into a folder "views" to render a Page
-	3. Tell NodeJS to use the ejs as page 
+<!--
+Source:
+
+- https://en.wikipedia.org/wiki/Python_(programming_language)
+- https://en.wikipedia.org/wiki/C%2B%2B
+- https://en.wikipedia.org/wiki/Java_(programming_language)
+- https://en.wikipedia.org/wiki/SQL
+- https://en.wikipedia.org/wiki/JavaScript
+- https://en.wikipedia.org/wiki/Data_analysis
+
+
+Using faker api:
+It is being used to generate a random name that is then passed to the main page
+
+-->
 */
 
 var express = require("express");
-var bodyParser = require("body-parser")
+var bodyParser = require("body-parser");
+var faker = require("faker");
 var app = express();
+
 
 app.set('view engine', 'ejs');
 
@@ -17,8 +31,11 @@ app.use(express.static("css"));
 
 app.use(bodyParser.urlencoded({extended:true}));
 
+
+
 app.get("/", function(req, res){
-	res.render("home.ejs");
+	var randomName = faker.name.findName();
+	res.render("home.ejs", {ranName:randomName});
 });
 
 app.get("/languages", function(req, res){
